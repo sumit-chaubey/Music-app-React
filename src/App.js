@@ -35,14 +35,14 @@ function App() {
 
    <div className='main-body'>
     <Routes>  
-   <Route path='/' element={<SongTable data={data} changeSong={changeSong}/>} />
-   <Route path="/search" element={<SongTable data={res} changeSong={changeSong} />} />
+   <Route path='/' element={<SongTable data={data} changeSong={changeSong} action={"delete"}/>} />
+   <Route path="/search" element={<SongTable data={res} changeSong={changeSong} action={"download"}/>} />
     </Routes>
    </div>
 
 
    <div className='player'>
-    <Player song={song}></Player>
+    <Player song={song} data={data} changeSong={changeSong}></Player>
    </div>
 
    </div>

@@ -4,17 +4,27 @@ import playImg from "../Resources/controls-play-svgrepo-com.svg"
 import forwImg from "../Resources/forwar-svgrepo-com.svg"
 import backImg from "../Resources/rewind-svgrepo-com.svg"
 const audio=new Audio();
-export default function Player({song}){
+export default function Player({song,data,changeSong}){
     const pointer=useRef();
     const [percent,setPercent]=useState(0);
     var interval; 
+  
+
     useEffect(()=>{
         pointer.current.style.width=`${percent}%`;
+        if(percent===100){
+            let ind=(Math.random().toFixed(1))*10;
+            ind=ind%data.data.results.length;
+            if(data.data.results.length>0){
+                changeSong(data.data.results[ind]);
+            }
+        }
         // console.log(`${percent}%`);
     },[percent])
       
     const [playstatus,setPlayStatus]=useState(false);
     function handlePlay(){
+        
         if(playstatus===true){
             audio.pause()
             clearInterval(interval)
@@ -119,19 +129,19 @@ export default function Player({song}){
             <h5>{song?.album?.name} </h5>
             <h5>{song?.artists?.primary[0]?.name} </h5>
         </div>
-        <div className="controles">
+        <div  className="controles">
             <button onClick={()=>{
                 back()
             }}>
             <img src={backImg} alt="" />
             </button>
-            <button onClick={()=>{
+            <button  onClick={()=>{
                 handlePlay();
             }}>
                {playstatus?(<img src={pausImg} alt="" />):
                 (<img src={playImg} alt="" />)}
             </button>
-            <button onClick={()=>{
+            <button  onClick={()=>{
                 forward()
             }}>
                 <img src={forwImg} alt="" />

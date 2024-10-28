@@ -5,7 +5,7 @@
     top: 0;
     position: absolute;
     background: rgb(233, 222, 222);
-    min-height: 16%;
+    min-height: 15%;
     width: 100%;
     display: flex;
     align-items: center;
@@ -55,17 +55,24 @@
   min-width: 35%;
   height: 35px;
   border-radius: 5px;
-  border: none; 
+  border: none;
+  border: 2px solid rgb(239, 159, 159); 
 }
 .search-container button{
   height: 38px;
   border-radius:5px;
   background-color: black;
   color: white;
+  border: 2px solid rgb(239, 159, 159);
+  cursor: pointer;
 }
 
+.search-container button:active{
+  animation: clickAnimation 180ms;
+}
 .song-table{
   width: 60%;
+
 }
 .song-row{
   border-radius: 10px;
@@ -125,7 +132,28 @@
   min-width: 150px;
   color:white;
   background: black;
-  z-index: 5;;
+  z-index: 5;
+}
+.table-row{
+  position: relative;
+}
+.action img{
+  width: 100%;
+}
+.action{
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  width: 20px;
+  height: 20px;
+  background-color: rgb(204, 104, 104);
+  border-radius: 50%;
+  /* z-index: 6; */
+  border: none;
+  color: white;
+}
+.action:hover{
+  background: red;
 }
 .player-body{
   font-size: 80%;
@@ -154,7 +182,8 @@
   height: 100%;
 }
 .controles{
-  background: black;
+  position: relative;
+  /* background: black; */
   width: 20%;
   display: flex;
   align-items: center;
@@ -163,13 +192,19 @@
   
 }
 .controles button{
+  position: relative;
   background: white;
+  border: 2px solid rgb(239, 159, 159);
   width: 50px;
   height: 50px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+}
+.controles button:active{
+  animation: clickAnimation 180ms;
 }
 .controles button img{
   width: 80%;
@@ -193,6 +228,20 @@
   height: 100%;
   background: red; 
 }
+
+@keyframes clickAnimation {
+  from{
+    scale: 1;
+  }
+  50%{
+    scale: 0.95;
+  }
+  to{
+    scale: 1;
+  }
+}
+
+
 @media (width<700px) {
   *{
     font-size: xx-small;
@@ -248,3 +297,4 @@
     /* background: blue; */
   }
 }
+
