@@ -13,7 +13,8 @@ export default function Player({song,data,changeSong}){
     useEffect(()=>{
         pointer.current.style.width=`${percent}%`;
         if(percent===100){
-            let ind=(Math.random().toFixed(1))*10;
+            setPercent(0);
+            let ind=(Math.random().toFixed(2))*100;
             ind=ind%data.data.results.length;
             if(data.data.results.length>0){
                 changeSong(data.data.results[ind]);
@@ -44,26 +45,28 @@ export default function Player({song,data,changeSong}){
 
 
     function forward(){
+        if(audio.currentTime<audio.duration-10){
         if(playstatus===true){
-            handlePlay();
-            audio.currentTime=audio.currentTime+10;
-            audio.play()
-            .then(()=>{
-                setPlayStatus(true)
-                interval=setInterval(()=>{
-                    setPercent((audio.currentTime/audio.duration)*100);
-                },250)
-            })
-        }
-        else{
-            audio.currentTime=audio.currentTime+10;
-            audio.play()
-            .then(()=>{
-                setPlayStatus(true)
-                interval=setInterval(()=>{
-                    setPercent((audio.currentTime/audio.duration)*100);
-                },250)
-            })
+                handlePlay();
+                audio.currentTime=audio.currentTime+10;
+                audio.play()
+                .then(()=>{
+                    setPlayStatus(true)
+                    interval=setInterval(()=>{
+                        setPercent((audio.currentTime/audio.duration)*100);
+                    },250)
+                })
+            }
+            else{
+                audio.currentTime=audio.currentTime+10;
+                audio.play()
+                .then(()=>{
+                    setPlayStatus(true)
+                    interval=setInterval(()=>{
+                        setPercent((audio.currentTime/audio.duration)*100);
+                    },250)
+                })
+            }
         }
     }
     function back(){

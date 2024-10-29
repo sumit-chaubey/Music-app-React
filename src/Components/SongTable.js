@@ -2,6 +2,7 @@ import download from "../Resources/download-svgrepo-com.svg"
 import deleteIcon from "../Resources/delete-svgrepo-com.svg"
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import emt from '../Resources/search-propertie-svgrepo-com.svg'
 
 export default function SongTable({data,changeSong,action}){
  
@@ -36,6 +37,12 @@ export default function SongTable({data,changeSong,action}){
         navigate('/');
  
       }
+
+      const decodeHtml = (html) => {
+        const txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+      };
       useEffect(() => {
         const data1=localStorage.getItem("data");
         
@@ -53,16 +60,16 @@ export default function SongTable({data,changeSong,action}){
 
 return(
     <div className='song-table'>
-      {data?.data?.results?.map((ele)=>(
+      {data?.data?.results.length>0? data?.data?.results?.map((ele)=>(
         <div className="table-row" key={ele.id}>
         <button className='song-row'  onClick={()=>{          
           changeSong(ele)
         }}>
         <div className='img-container'><img src={ele.image[2].url} alt="song-img" /></div>
         <div className='song-desc'>
-          <h4>Name : {ele?.name}</h4>
-          <h5>Artist : {ele?.artists?.primary[0]?.name}</h5>
-          <h5>Album : {ele?.album?.name}</h5>
+          <h4>Name : {decodeHtml(ele?.name)}</h4>
+          <h5>Artist : {decodeHtml(ele?.artists?.primary[0]?.name)}</h5>
+          <h5>Album : {decodeHtml(ele?.album?.name)}</h5>
         </div>
         <div className='song-duration'><h5>{(ele?.duration /60).toFixed(1)} min</h5></div>
         </button>
@@ -75,7 +82,7 @@ return(
           }
         }}>{action==="delete"?<img src={deleteIcon} alt="" />:<img src={download} alt="download-icon" />}</button>
         </div>
-      ))}
+      )):<div className="empty"> <img src={emt} alt="empty-icon"></img> <p>We did not find any songs in your {action==="download"?<>search.</>:<>downloads.</>} You can search for your favourate songs in the search box at the top to listen.</p> </div>}
     </div>
 )
 }
