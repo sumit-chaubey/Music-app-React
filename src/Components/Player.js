@@ -126,12 +126,13 @@ export default function Player({song,data,changeSong}){
             <div className="timeline">
                 <div ref={pointer} className="cursor"></div>
             </div>
-            <div className="player-img-container"><img src={song?.image[2]?.url} alt="" /></div>
+      {song?.name?.length>0 ?
+      <><div className="player-img-container"><img src={song?.image[2]?.url} alt="" /></div>
         <div className="player-song-desc">
             <h4>{song?.name} </h4>
             <h5>{song?.album?.name} </h5>
             <h5>{song?.artists?.primary[0]?.name} </h5>
-        </div>
+        </div></>:<></>}
         <div  className="controles">
             <button onClick={()=>{
                 back()
@@ -150,11 +151,11 @@ export default function Player({song,data,changeSong}){
                 <img src={forwImg} alt="" />
             </button>
         </div>
-        <div className="more-details">
+    {song?.name?.length>0? <div className="more-details">
             <h4>{song?.label} </h4>
             {song?<h5>Released: {song?.year} </h5>:null}
             {song?<h5>Views: {song?.playCount} </h5>:null }
-        </div>
+        </div>:<></>}
         </div>
     )
 }
